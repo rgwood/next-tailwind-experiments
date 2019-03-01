@@ -11,12 +11,12 @@ const ArticleLink = (props) => (
 
 const recentArticles = getRecentArticles(2);
 
-// TODO: implement a proper foreach, this is dumb I just couldn't figure out the syntax on the plane
 export default () => (
     <div>
         <ul>
-            <ArticleLink id={recentArticles[0].id} name={recentArticles[0].name} />
-            <ArticleLink id={recentArticles[1].id} name={recentArticles[1].name} />
+            {
+                recentArticles.map((a) => <ArticleLink id={a.id} name={a.name}/>)
+            }
         </ul>
     </div>
 )
