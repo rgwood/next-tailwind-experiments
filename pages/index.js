@@ -1,8 +1,9 @@
 import '../styles/index.css'
+import Layout from '../components/Layout'
 
 export default () => (
-    <div className="p-4 shadow rounded bg-white">
+  <Layout>
       <h1 className="text-purple leading-normal">Next.js</h1>
       <p className="text-grey-dark">with Tailwind CSS</p>
-    </div>
-  )
+  </Layout>
+)
