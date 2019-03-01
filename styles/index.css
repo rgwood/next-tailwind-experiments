@@ -1,5 +1,5 @@
 @tailwind preflight;
 @tailwind utilities;
 body {
-  @apply bg-grey-light p-12;
+  @apply bg-grey-light;
 }
