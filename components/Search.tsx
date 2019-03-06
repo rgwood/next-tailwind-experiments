@@ -29,13 +29,13 @@ function sortNamesByHowWellTheyMatch(a: ArticleHeader, b: ArticleHeader, value: 
     return aLower < bLower ? -1 : 1
 }
 
-function searchTermIsInArticle(article: ArticleHeader, searchTerm: string) {
-    // why the fuck is `searchTerm` a SyntheticEvent after a keypress?
-    console.log({searchTerm});
 
+
+function searchTermIsInArticle(article: ArticleHeader, searchTerm: string) : boolean {
     return (
         article.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-        article.id.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        article.id.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+        article.date.getFullYear().toString().toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1    
     )
 }
 
@@ -55,7 +55,7 @@ function Search(props: Props) {
             getItemValue={(item: ArticleHeader) => item.name}
             shouldItemRender={searchTermIsInArticle}
             sortItems={sortNamesByHowWellTheyMatch}
-            onChange={(value: string) => setSearchInput(value)}
+            onChange={(e: Event, value: string) => setSearchInput(e.target.value)}
             onSelect={(value: string, item: ArticleHeader) => {
                 // setSearchInput(value);
                 if (props.router) {
