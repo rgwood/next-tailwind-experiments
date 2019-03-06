@@ -2,6 +2,7 @@ import '../styles/index.css'
 import Layout from '../components/Layout'
 import RecentArticles from '../components/RecentArticles';
 import Search from '../components/Search';
+import Clock from '../components/Clock';
 import { withRouter } from 'next/router';
 
 function searchInputMirror(input: string) {
@@ -12,6 +13,7 @@ export default withRouter((props) => {
   if (!!props.router) {
     return <Layout title="Home Page">
       <p>Made with Tailwind CSS and Next.js</p>
+      <Clock/>
       {/* <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
     value={searchInput} onChange={e => setSearchInput(e.target.value)}/> */}
       <Search router={props.router} />
