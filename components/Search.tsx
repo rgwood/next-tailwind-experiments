@@ -1,7 +1,8 @@
 import '../styles/index.css'
-import { useState } from 'react';
+import { useState, SyntheticEvent } from 'react';
 import * as Autocomplete from 'react-autocomplete';
-import { getAllArticles, Article } from '../services/data.service';
+import { ArticleHeader } from '../models/article'
+import { getAllArticleHeaders } from '../services/data.service';
 import { SingletonRouter } from 'next/router';
 import { isString } from 'util';
 
@@ -17,7 +18,7 @@ export interface Props {
  * location (or there is no match) will be sorted alphabetically - For example,
  * a search for "or" would return "North Carolina" above "North Dakota".
  */
-function sortNamesByHowWellTheyMatch(a: Article, b: Article, value: string) {
+function sortNamesByHowWellTheyMatch(a: ArticleHeader, b: ArticleHeader, value: string) {
     const aLower = a.name.toLowerCase()
     const bLower = b.name.toLowerCase()
     const valueLower = value.toLowerCase()
@@ -29,9 +30,9 @@ function sortNamesByHowWellTheyMatch(a: Article, b: Article, value: string) {
     return aLower < bLower ? -1 : 1
 }
 
-function searchTermIsInArticle(article: Article, searchTerm: string) {
+function searchTermIsInArticle(article: ArticleHeader, searchTerm: SyntheticEvent) {
     // why the fuck is `searchTerm` a SyntheticEvent after a keypress?
-    console.log({value: searchTerm});
+    console.log({searchTerm});
 
     return (
         article.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
@@ -51,12 +52,12 @@ function Search(props: Props) {
                 className: "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline",
                 placeholder:"Search articles"
             }}
-            items={getAllArticles()}
-            getItemValue={(item: Article) => item.name}
+            items={getAllArticleHeaders()}
+            getItemValue={(item: ArticleHeader) => item.name}
             shouldItemRender={searchTermIsInArticle}
             sortItems={sortNamesByHowWellTheyMatch}
             onChange={(value: string) => setSearchInput(value)}
-            onSelect={(value: string, item: Article) => {
+            onSelect={(value: string, item: ArticleHeader) => {
                 // setSearchInput(value);
                 if (props.router) {
                     props.router.push(`/article?id=${item.id}`);
@@ -67,7 +68,7 @@ function Search(props: Props) {
                     {children}
                 </div>
             )}
-            renderItem={(item: Article, isHighlighted: boolean) => (
+            renderItem={(item: ArticleHeader, isHighlighted: boolean) => (
                 <div
                     className={`${isHighlighted ? 'bg-blue-light' : ''}`}
                     key={item.id}

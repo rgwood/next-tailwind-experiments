@@ -2,12 +2,7 @@ import '../styles/index.css'
 import Layout from '../components/Layout'
 import RecentArticles from '../components/RecentArticles';
 import Search from '../components/Search';
-import { withRouter, WithRouterProps, SingletonRouter } from 'next/router';
-import { PropsWithChildren } from 'react';
-
-function handleClick(input: string) {
-  console.log(`Search input: ${input}`)
-}
+import { withRouter } from 'next/router';
 
 function searchInputMirror(input: string) {
   return <div className="text-purple">input</div>

@@ -1,7 +1,7 @@
 import '../styles/index.css'
 import Layout from '../components/Layout'
-import { getName, getDescription } from '../services/data.service';
-import { withRouter, WithRouterProps, SingletonRouter } from 'next/router';
+import { loadFullArticle } from '../services/data.service';
+import { withRouter, WithRouterProps } from 'next/router';
 
 function queryIdIsDefined(props: React.PropsWithChildren<WithRouterProps<Record<string, string | string[] | undefined>>>): boolean {
   // This is mildly insane. Is there a better way?
@@ -10,13 +10,14 @@ function queryIdIsDefined(props: React.PropsWithChildren<WithRouterProps<Record<
 
 const idNotSpecifiedLayout = <Layout title="Article ID not specified">Sorry</Layout>
 
-export default withRouter((props) => (
-  <div>
-    {queryIdIsDefined(props) ? <Layout title={getName(props.router.query.id)}>
-    <p>ID: {props.router.query.id}</p>
-    <p>{getDescription(props.router.query.id)}</p>
-  </Layout>: idNotSpecifiedLayout
-    }
-  
-  </div>
-));
+export default withRouter((props) => {
+  if(!queryIdIsDefined(props)) {
+    return idNotSpecifiedLayout;
+  }
+
+  const article = loadFullArticle(props.router.query.id);
+  return <Layout title={article.name}>
+    <p>ID: {article.id}</p>
+    <p>{article.description}</p>
+  </Layout>
+});

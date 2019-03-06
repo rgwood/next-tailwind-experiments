@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { getRecentArticles } from '../services/data.service';
+import { getRecentArticleHeaders } from '../services/data.service';
 
-const recentArticles = getRecentArticles(2);
+const recentArticles = getRecentArticleHeaders(4);
 
 export default () => (
     <div>
