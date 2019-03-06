@@ -5,6 +5,7 @@ const recentArticles = getRecentArticles(2);
 
 export default () => (
     <div>
+        <span className="font-bold">Recent Articles</span>
         <ul>
             {
                 recentArticles.map((a) =>

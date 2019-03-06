@@ -16,6 +16,7 @@
     "@zeit/next-typescript": "^1.1.1",
     "next": "^8.0.3",
     "react": "^16.8.3",
+    "react-autocomplete": "^1.8.1",
     "react-dom": "^16.8.3"
   },
   "devDependencies": {
