@@ -1,6 +1,12 @@
 import Header from './Header'
+import {ReactNode} from 'react';
 
-const Layout = (props) => (
+export interface Props {
+    title: string;
+    children: ReactNode[] | ReactNode;
+  }
+
+const Layout = (props: Props) => (
     <div className="mx-auto max-w-xl p-4 md:p-12">
         <Header />
         <div className="p-4 shadow rounded bg-white">
