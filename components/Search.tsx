@@ -1,10 +1,9 @@
 import '../styles/index.css'
-import { useState, SyntheticEvent } from 'react';
+import { useState } from 'react';
 import * as Autocomplete from 'react-autocomplete';
 import { ArticleHeader } from '../models/article'
 import { getAllArticleHeaders } from '../services/data.service';
 import { SingletonRouter } from 'next/router';
-import { isString } from 'util';
 
 export interface Props {
     router: SingletonRouter;
@@ -64,15 +63,15 @@ function Search(props: Props) {
                 }
             }}
             renderMenu={children => (
-                <div className="menu">
+                <div className="menu border">
                     {children}
                 </div>
             )}
             renderItem={(item: ArticleHeader, isHighlighted: boolean) => (
                 <div
-                    className={`${isHighlighted ? 'bg-blue-light' : ''}`}
+                    className={`p-1 ${isHighlighted ? 'bg-blue-light text-white' : ''}`}
                     key={item.id}
-                >{item.name}</div>
+                >{`${item.name} (${item.date.getFullYear()})`}</div>
             )}
         />
     </div>
