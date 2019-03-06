@@ -30,7 +30,7 @@ function sortNamesByHowWellTheyMatch(a: ArticleHeader, b: ArticleHeader, value: 
     return aLower < bLower ? -1 : 1
 }
 
-function searchTermIsInArticle(article: ArticleHeader, searchTerm: SyntheticEvent) {
+function searchTermIsInArticle(article: ArticleHeader, searchTerm: string) {
     // why the fuck is `searchTerm` a SyntheticEvent after a keypress?
     console.log({searchTerm});
 
