@@ -3,11 +3,7 @@ import { useState } from 'react';
 import * as Autocomplete from 'react-autocomplete';
 import { ArticleHeader } from '../models/article'
 import { getAllArticleHeaders } from '../services/data.service';
-import { SingletonRouter } from 'next/router';
-
-export interface Props {
-    router: SingletonRouter;
-}
+import Router from 'next/router'
 
 /**
  * An example of how to implement a relevancy-based sorting method. States are
@@ -39,7 +35,7 @@ function searchTermIsInArticle(article: ArticleHeader, searchTerm: string) : boo
     )
 }
 
-function Search(props: Props) {
+function Search() {
     var [searchInput, setSearchInput] = useState("");
     return <div >
         <label htmlFor="search-autocomplete" className="font-bold">Search</label>
@@ -56,12 +52,7 @@ function Search(props: Props) {
             shouldItemRender={searchTermIsInArticle}
             sortItems={sortNamesByHowWellTheyMatch}
             onChange={(e: Event, value: string) => setSearchInput(e.target.value)}
-            onSelect={(value: string, item: ArticleHeader) => {
-                // setSearchInput(value);
-                if (props.router) {
-                    props.router.push(`/article?id=${item.id}`);
-                }
-            }}
+            onSelect={(value: string, item: ArticleHeader) => {Router.push(`/article?id=${item.id}`)}}
             renderMenu={children => (
                 <div className="menu border">
                     {children}
