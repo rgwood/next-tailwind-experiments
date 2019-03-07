@@ -17,7 +17,6 @@ export default withRouter((props) => {
 
   const article = loadFullArticle(props.router.query.id);
   return <Layout title={article.name}>
-    <p>ID: {article.id}</p>
-    <p>{article.description}</p>
+    <p className="mt-3">{article.description}</p>
   </Layout>
 });

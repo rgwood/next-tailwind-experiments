@@ -3,21 +3,19 @@ import Layout from '../components/Layout'
 import RecentArticles from '../components/RecentArticles';
 import Search from '../components/Search';
 import Clock from '../components/Clock';
-import { withRouter } from 'next/router';
 
-export default withRouter((props) => {
-  if (!!props.router) {
-    return <Layout title="Home Page">
+export default () => {
+    return <Layout title="Cities and Code Scrapbook">
       <p>Made with Tailwind CSS and Next.js</p>
+      
+      <div className="mt-4">
       <Clock/>
+      </div>
+      <div className="mt-4">
       <Search/>
+      </div>
       <div className="mt-4">
         <RecentArticles />
       </div>
     </Layout>
-  }
-  else {
-    throw new Error("Router not defined. Something's up with Next.js");
-  }
 }
-)
