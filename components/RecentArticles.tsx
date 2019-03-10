@@ -1,10 +1,16 @@
 import Link from 'next/link'
+import { useState, useEffect } from 'react';
 import { getRecentArticleHeaders } from '../services/data.service';
+import { ArticleHeader } from '../models/article'
 
-const recentArticles = getRecentArticleHeaders(4);
+const numberOfRecentArticlesToFetch = 4;
 
-export default () => (
-    <div>
+function RecentArticles() {
+    var [recentArticles, setRecentArticles] = useState<ArticleHeader[]>([]);
+    useEffect(() => {
+        getRecentArticleHeaders(numberOfRecentArticlesToFetch).then(result => {setRecentArticles(result)})
+    },[]);
+    return <div>
         <span className="font-bold">Recent Articles</span>
         <ul>
             {
@@ -18,4 +24,5 @@ export default () => (
             }
         </ul>
     </div>
-)
+}
+export default RecentArticles;

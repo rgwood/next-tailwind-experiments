@@ -1,5 +1,5 @@
 export interface ArticleHeader {
-    id: string;
+    id: number;
     name: string;
     date: Date;
 }
