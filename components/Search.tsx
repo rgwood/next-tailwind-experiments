@@ -1,8 +1,8 @@
 import '../styles/index.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as Autocomplete from 'react-autocomplete';
 import { ArticleHeader } from '../models/article'
-import { getAllArticleHeaders } from '../services/data.service';
+import { getAllArticleHeaders, getAllArticleHeadersAsync } from '../services/data.service';
 import Router from 'next/router'
 
 /**
@@ -37,6 +37,17 @@ function searchTermIsInArticle(article: ArticleHeader, searchTerm: string) : boo
 
 function Search() {
     var [searchInput, setSearchInput] = useState("");
+    var [autocompleteOptions, setAutoCompleteOptions] = useState<ArticleHeader[]>([]);
+    // Todo: find a less hacky way of fetching data asynchronously.
+    // From https://www.robinwieruch.de/react-hooks-fetch-data/
+    useEffect(() => {
+        const fetchData = async () => {
+            const headers = await getAllArticleHeadersAsync();
+            setAutoCompleteOptions(headers);
+        }
+
+        fetchData();
+    },[]);
     return <div >
         <label htmlFor="search-autocomplete" className="font-bold">Search</label>
         <div />
@@ -47,7 +58,7 @@ function Search() {
                 className: "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline",
                 placeholder:"Search articles"
             }}
-            items={getAllArticleHeaders()}
+            items={autocompleteOptions}
             getItemValue={(item: ArticleHeader) => item.name}
             shouldItemRender={searchTermIsInArticle}
             sortItems={sortNamesByHowWellTheyMatch}

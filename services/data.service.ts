@@ -31,6 +31,19 @@ export function getRecentArticleHeaders(howManyToGet: number) {
     return mocks.slice(0,howManyToGet);
 }
 
+export async function getAllArticleHeadersAsync() {
+    var url = 'http://localhost:3001/article';
+    var res = await fetch(url);
+    
+    console.log({res});
+    var parsed = JSON.parse(await res.text());
+    // Force parsing of strings to dates. Is there a less crazy way of doing this?
+    parsed.forEach(header => {
+        header.date = new Date(Date.parse(header.date));
+    });
+    return parsed;
+}
+
 export function getAllArticleHeaders() {
     return mocks;
 }
