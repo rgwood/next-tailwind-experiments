@@ -1,7 +1,8 @@
 export interface ArticleHeader {
     id: number;
     name: string;
-    date: Date;
+    date?: Date;
+    url?: string;
 }
 
 export interface Article extends ArticleHeader {

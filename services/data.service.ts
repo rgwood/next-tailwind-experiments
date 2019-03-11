@@ -16,7 +16,6 @@ export async function loadFullArticleFromHeader(header: ArticleHeader): Promise<
 export async function loadDescription(id: number) {
     var res = await fetch(`${serverAddress}/article_text?article_id=eq.${id.toString()}`);
     var parsed = JSON.parse(await res.text());
-
     return (parsed[0] && parsed[0].text) ? parsed[0].text: "";
 }
 
