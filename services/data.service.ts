@@ -10,8 +10,7 @@ export async function loadFullArticle(id: number): Promise<Article> {
 }
 
 export async function loadFullArticleFromHeader(header: ArticleHeader): Promise<Article> {
-    // todo: there's probably a nicer syntax for this
-    return {id: header.id, name: header.name, date: header.date, description: await loadDescription(header.id)}
+    return Object.assign({description: await loadDescription(header.id)}, header);
 }
 
 export async function loadDescription(id: number) {
