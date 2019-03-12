@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export interface Props {
     title: string;
-    topRightText: string | undefined;
+    topRightText?: string;
     children: ReactNode[] | ReactNode;
 }
 
