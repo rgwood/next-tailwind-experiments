@@ -29,7 +29,7 @@ function searchTermIsInArticle(article: ArticleHeader, searchTerm: string) : boo
     return (
         article.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
         article.id.toString().indexOf(searchTerm.toLowerCase()) !== -1 ||
-        article.date.getFullYear().toString().toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1    
+        (!!article.date && article.date.getFullYear().toString().toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)
     )
 }
 

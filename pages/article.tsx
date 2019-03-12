@@ -29,7 +29,7 @@ export default withRouter((props) => {
   }
 
   return <Layout title={article.name} topRightText={article.date ? moment(article.date).format('MMMM D, YYYY') : undefined}>
-    <div className="mt-3"/>
+    <div className="mt-3" />
     <p><a href='http://localhost:3000/article?id=1'>Link</a></p>
     <p className="mt-3">{article.description}</p>
     <p>{article.url ? article.url : ''}</p>

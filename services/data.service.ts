@@ -1,6 +1,6 @@
 import { Article, ArticleHeader } from '../models/article'
 
-const serverAddress = "http://localhost:3001";
+const serverAddress = "http://209.97.145.95:3001";
 
 export async function loadFullArticle(id: number): Promise<Article> {
     var header = await getArticleHeader(id);

@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 var timerId: NodeJS.Timeout;
 
 function Clock() {
-    
     var [time, setTime] = useState(new Date(Date.now()));
 
     useEffect(() => {

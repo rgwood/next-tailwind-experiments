@@ -8,8 +8,8 @@ const numberOfRecentArticlesToFetch = 4;
 function RecentArticles() {
     var [recentArticles, setRecentArticles] = useState<ArticleHeader[]>([]);
     useEffect(() => {
-        getRecentArticleHeaders(numberOfRecentArticlesToFetch).then(result => {setRecentArticles(result)})
-    },[]);
+        getRecentArticleHeaders(numberOfRecentArticlesToFetch).then(result => { setRecentArticles(result) })
+    }, []);
     return <div>
         <span className="font-bold">Recent Articles</span>
         <ul>
