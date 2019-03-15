@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react';
 import { getRecentArticleHeaders } from '../services/data.service';
-import { ArticleHeader } from '../models/article'
+import { ArticleHeaderModel } from '../models/article'
 
 const numberOfRecentArticlesToFetch = 4;
 
 function RecentArticles() {
-    var [recentArticles, setRecentArticles] = useState<ArticleHeader[]>([]);
+    var [recentArticles, setRecentArticles] = useState<ArticleHeaderModel[]>([]);
     useEffect(() => {
         getRecentArticleHeaders(numberOfRecentArticlesToFetch).then(result => { setRecentArticles(result) })
     }, []);

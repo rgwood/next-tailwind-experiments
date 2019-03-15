@@ -1,37 +1,33 @@
 import '../styles/index.css'
 import Layout from '../components/Layout'
 import { loadFullArticle } from '../services/data.service';
-import { withRouter, WithRouterProps } from 'next/router';
-import { useState, useEffect } from 'react';
-import { Article } from '../models/article';
+import { ArticleModel } from '../models/article';
 import * as moment from 'moment';
+import { NextFunctionComponent, NextContext } from 'next';
 
-function queryIdIsDefined(props: React.PropsWithChildren<WithRouterProps<Record<string, string | string[] | undefined>>>): boolean {
-  // This is mildly insane. Is there a better way?
-  return !!props && !!props.router && !!props.router.query && !!props.router.query.id;
+interface ArticleProps {
+  article: ArticleModel;
 }
 
-const idNotSpecifiedLayout = <Layout title="Article ID not specified">Sorry</Layout>
-
-export default withRouter((props) => {
-  const [article, setArticle] = useState<Article>();
-  useEffect(() => {
-    loadFullArticle(props.router.query.id).then(
-      result => {
-        console.log({ result });
-        setArticle(result);
-      })
-  }, []);
-
-  // TODO: fix this so it doesn't show the "id not specified" view briefly before loading content
-  if (!queryIdIsDefined(props) || !article) {
-    return idNotSpecifiedLayout;
-  }
-
+const Article: NextFunctionComponent<ArticleProps> = ({article}) => 
+{
   return <Layout title={article.name} topRightText={article.date ? moment(article.date).format('MMMM D, YYYY') : undefined}>
     <div className="mt-3" />
     <p><a href='http://localhost:3000/article?id=1'>Link</a></p>
     <p className="mt-3">{article.description}</p>
     <p>{article.url ? article.url : ''}</p>
   </Layout>
-});
+};
+
+Article.getInitialProps = async function( {query}: NextContext) {
+  const {id} = query;
+  if(!id) {
+    throw Error("ID not specified");
+  }
+
+  const idNum = Number.parseInt(id as string);
+  const ret = await loadFullArticle(idNum);
+  return {article: ret};
+};
+
+export default Article;

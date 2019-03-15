@@ -1,7 +1,7 @@
 import '../styles/index.css'
 import { useState, useEffect } from 'react';
 import * as Autocomplete from 'react-autocomplete';
-import { ArticleHeader } from '../models/article'
+import { ArticleHeaderModel } from '../models/article'
 import { getAllArticleHeaders } from '../services/data.service';
 import Router from 'next/router'
 
@@ -13,7 +13,7 @@ import Router from 'next/router'
  * location (or there is no match) will be sorted alphabetically - For example,
  * a search for "or" would return "North Carolina" above "North Dakota".
  */
-function sortNamesByHowWellTheyMatch(a: ArticleHeader, b: ArticleHeader, value: string) {
+function sortNamesByHowWellTheyMatch(a: ArticleHeaderModel, b: ArticleHeaderModel, value: string) {
     const aLower = a.name.toLowerCase()
     const bLower = b.name.toLowerCase()
     const valueLower = value.toLowerCase()
@@ -25,7 +25,7 @@ function sortNamesByHowWellTheyMatch(a: ArticleHeader, b: ArticleHeader, value: 
     return aLower < bLower ? -1 : 1
 }
 
-function searchTermIsInArticle(article: ArticleHeader, searchTerm: string) : boolean {
+function searchTermIsInArticle(article: ArticleHeaderModel, searchTerm: string) : boolean {
     return (
         article.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
         article.id.toString().indexOf(searchTerm.toLowerCase()) !== -1 ||
@@ -35,7 +35,7 @@ function searchTermIsInArticle(article: ArticleHeader, searchTerm: string) : boo
 
 function Search() {
     var [searchInput, setSearchInput] = useState("");
-    var [autocompleteOptions, setAutoCompleteOptions] = useState<ArticleHeader[]>([]);
+    var [autocompleteOptions, setAutoCompleteOptions] = useState<ArticleHeaderModel[]>([]);
     useEffect(() => {
         getAllArticleHeaders().then(result => setAutoCompleteOptions(result))
     },[]);
@@ -50,17 +50,17 @@ function Search() {
                 placeholder:"Search articles"
             }}
             items={autocompleteOptions}
-            getItemValue={(item: ArticleHeader) => item.name}
+            getItemValue={(item: ArticleHeaderModel) => item.name}
             shouldItemRender={searchTermIsInArticle}
             sortItems={sortNamesByHowWellTheyMatch}
             onChange={(e: Event, value: string) => setSearchInput(e.target.value)}
-            onSelect={(value: string, item: ArticleHeader) => {Router.push(`/article?id=${item.id}`)}}
+            onSelect={(value: string, item: ArticleHeaderModel) => {Router.push(`/article?id=${item.id}`)}}
             renderMenu={children => (
                 <div className="menu border">
                     {children}
                 </div>
             )}
-            renderItem={(item: ArticleHeader, isHighlighted: boolean) => (
+            renderItem={(item: ArticleHeaderModel, isHighlighted: boolean) => (
                 <div
                     className={`p-1 ${isHighlighted ? 'bg-blue-light text-white' : ''}`}
                     key={item.id}

@@ -1,15 +1,17 @@
-import { Article, ArticleHeader } from '../models/article'
+import { ArticleModel, ArticleHeaderModel } from '../models/article'
+import fetch from 'isomorphic-fetch';
 
-const serverAddress = "http://209.97.145.95:3001";
+//const serverAddress = "http://209.97.145.95:3001";
+const serverAddress = "http://localhost:3001";
 
-export async function loadFullArticle(id: number): Promise<Article> {
+export async function loadFullArticle(id: number): Promise<ArticleModel> {
     var header = await getArticleHeader(id);
     if (!header) 
         throw new Error(`id '${id}' not found`);
     return loadFullArticleFromHeader(header);
 }
 
-export async function loadFullArticleFromHeader(header: ArticleHeader): Promise<Article> {
+export async function loadFullArticleFromHeader(header: ArticleHeaderModel): Promise<ArticleModel> {
     return Object.assign({description: await loadDescription(header.id)}, header);
 }
 
