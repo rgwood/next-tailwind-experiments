@@ -6,11 +6,7 @@ import * as moment from 'moment';
 import { NextFunctionComponent, NextContext } from 'next';
 import ReactMarkdown from 'react-markdown';
 
-interface ArticleProps {
-  article: ArticleModel;
-}
-
-const Article: NextFunctionComponent<ArticleProps> = ({article}) => 
+const Article: NextFunctionComponent<{article: ArticleModel}> = ({article}) => 
 {
   return <Layout title={article.name} topRightText={article.date ? moment(article.date).format('MMMM D, YYYY') : undefined}>
     <div className="mt-3" />
